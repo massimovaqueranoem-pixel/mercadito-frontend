@@ -1,0 +1,410 @@
+/* ==========================================================
+   Cafetería Escolar · Tema "Hanami" (parque de cerezos en flor)
+   Reemplaza el contenido de src/index.css con este archivo.
+   No necesitas cambiar tus componentes .jsx: los estilos
+   se aplican directo a las etiquetas que ya usas.
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Shippori+Mincho:wght@600;800&display=swap');
+
+:root {
+  /* Pétalos y flores */
+  --petalo: #ffc2d4;
+  --petalo-claro: #ffe3ec;
+  --flor: #f48fb1;
+  --rosa-intenso: #c2255c;
+
+  /* Tonos añadidos: follaje, cielo de atardecer y durazno */
+  --hoja: #6fb27d;
+  --hoja-oscuro: #2f6b3f;
+  --hoja-clara: #e3f4e0;
+  --lavanda: #6d59c0;
+  --lavanda-clara: #ede7fb;
+  --durazno: #ffd9b8;
+
+  /* Tinta y fondo */
+  --ciruela: #43203f;
+  --crema: #fff7f9;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--petalo);
+  color: var(--ciruela);
+}
+
+/* ---------- Fondo: cielo rosado con luces de durazno, lavanda y follaje ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ciruela);
+  background:
+    radial-gradient(circle at 8% 0%, var(--petalo) 0, transparent 38%),
+    radial-gradient(circle at 95% 8%, var(--lavanda-clara) 0, transparent 40%),
+    radial-gradient(circle at 80% 100%, var(--hoja-clara) 0, transparent 42%),
+    radial-gradient(circle at 5% 95%, var(--durazno) 0, transparent 35%),
+    linear-gradient(180deg, #fff3f7 0%, var(--crema) 100%);
+  background-attachment: fixed;
+}
+
+/* ---------- Pétalos cayendo (dos capas a distinta velocidad) ---------- */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background-image:
+    radial-gradient(ellipse 7px 10px at 12% 18%, rgba(244, 143, 177, 0.75) 60%, transparent 63%),
+    radial-gradient(ellipse 5px 8px at 38% 52%, rgba(255, 194, 212, 0.95) 60%, transparent 63%),
+    radial-gradient(ellipse 6px 9px at 67% 30%, rgba(244, 143, 177, 0.6) 60%, transparent 63%),
+    radial-gradient(ellipse 5px 7px at 85% 74%, rgba(255, 194, 212, 0.95) 60%, transparent 63%),
+    radial-gradient(ellipse 7px 10px at 24% 88%, rgba(255, 255, 255, 0.95) 60%, transparent 63%);
+  background-size: 340px 340px;
+  animation: caer-petalos 34s linear infinite;
+}
+
+body::after {
+  background-image:
+    radial-gradient(ellipse 9px 13px at 20% 25%, rgba(255, 194, 212, 0.85) 60%, transparent 63%),
+    radial-gradient(ellipse 8px 11px at 58% 68%, rgba(244, 143, 177, 0.55) 60%, transparent 63%),
+    radial-gradient(ellipse 9px 12px at 82% 12%, rgba(255, 255, 255, 0.9) 60%, transparent 63%),
+    radial-gradient(ellipse 7px 10px at 42% 92%, rgba(255, 217, 184, 0.9) 60%, transparent 63%);
+  background-size: 520px 520px;
+  animation: caer-petalos-inverso 52s linear infinite;
+}
+
+@keyframes caer-petalos {
+  from { background-position: 0 0; }
+  to   { background-position: -340px 340px; }
+}
+
+@keyframes caer-petalos-inverso {
+  from { background-position: 0 0; }
+  to   { background-position: 520px 520px; }
+}
+
+/* ---------- Contenedor principal ---------- */
+#root {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+/* ---------- Título ---------- */
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 0 2.25rem;
+  font-family: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--ciruela);
+  text-align: center;
+  text-shadow: 0 3px 0 #fff, 0 10px 24px rgba(194, 37, 92, 0.25);
+}
+
+h1::before,
+h1::after {
+  content: '🌸';
+  font-size: 0.7em;
+}
+
+/* ---------- Secciones (formulario y lista) ---------- */
+#root > div > div {
+  --acento: var(--flor);
+  margin-bottom: 2rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--petalo);
+  border-top: 6px solid var(--acento);
+  border-radius: 28px;
+  box-shadow: 0 22px 44px -26px rgba(194, 37, 92, 0.5);
+}
+
+/* Formulario: acento verde de follaje */
+#root > div > div:nth-of-type(1) {
+  --acento: var(--hoja);
+}
+
+/* Lista: acento rosa de flor */
+#root > div > div:nth-of-type(2) {
+  --acento: var(--flor);
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.25rem;
+  font-family: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3.2vw, 1.7rem);
+  color: var(--ciruela);
+}
+
+/* Viñeta en forma de pétalo */
+h2::before {
+  content: '';
+  flex: none;
+  width: 0.8em;
+  height: 0.8em;
+  background: var(--acento);
+  border-radius: 70% 0 70% 0;
+  transform: rotate(-12deg);
+  box-shadow: 0 4px 10px -3px var(--acento);
+}
+
+/* ---------- Formularios, selects e inputs ---------- */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+select,
+input {
+  flex: 1 1 170px;
+  min-width: 0;
+  padding: 0.7rem 0.95rem;
+  font: inherit;
+  color: var(--ciruela);
+  background-color: #fff;
+  border: 2px solid var(--petalo);
+  border-radius: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23c2255c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: #a77c9c;
+}
+
+select:hover,
+input:hover {
+  border-color: var(--flor);
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--lavanda);
+  box-shadow: 0 0 0 4px var(--lavanda-clara);
+}
+
+/* ---------- Botones ---------- */
+button {
+  padding: 0.7rem 1.5rem;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #e8588a, var(--rosa-intenso));
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 10px 20px -10px rgba(194, 37, 92, 0.8);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--lavanda);
+  outline-offset: 3px;
+}
+
+/* ---------- Tabla de ventas ---------- */
+table {
+  width: 100%;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 0 2px var(--petalo);
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border: 0;
+}
+
+thead th {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--petalo-claro);
+  background: var(--ciruela);
+}
+
+thead th:first-child {
+  border-top-left-radius: 16px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 16px;
+}
+
+tbody td {
+  border-bottom: 1px solid var(--petalo-claro);
+}
+
+tbody tr:nth-child(even) td {
+  background: #fff6f9;
+}
+
+tbody tr:hover td {
+  background: var(--lavanda-clara);
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 16px;
+}
+
+tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+/* Cantidad centrada; precio y total alineados a la derecha */
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: center;
+}
+
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5) {
+  text-align: right;
+}
+
+/* El total resalta en verde, como dinero que entra */
+td:nth-child(5) {
+  font-weight: 700;
+  color: var(--hoja-oscuro);
+}
+
+/* ---------- Botones de la tabla ---------- */
+td:last-child {
+  white-space: nowrap;
+}
+
+td:last-child button {
+  padding: 0.4rem 1rem;
+  font-size: 0.88rem;
+  box-shadow: none;
+}
+
+td:last-child button + button {
+  margin-left: 0.45rem;
+}
+
+/* Editar: lavanda */
+td:last-child button:first-child {
+  background: var(--lavanda);
+}
+
+/* Eliminar: contorno rosa que se rellena al pasar el mouse */
+td:last-child button:last-child {
+  color: var(--rosa-intenso);
+  background: #fff;
+  box-shadow: inset 0 0 0 2px var(--rosa-intenso);
+}
+
+td:last-child button:last-child:hover {
+  color: #fff;
+  background: var(--rosa-intenso);
+  filter: none;
+}
+
+/* ---------- Formulario de edición (aparece debajo de la tabla) ---------- */
+table + form {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--hoja-clara);
+  border: 2px dashed var(--hoja);
+  border-radius: 22px;
+}
+
+table + form button {
+  background: linear-gradient(135deg, var(--hoja), var(--hoja-oscuro));
+  box-shadow: 0 10px 20px -10px rgba(47, 107, 63, 0.8);
+}
+
+/* ---------- Celular y pantallas pequeñas ---------- */
+@media (max-width: 760px) {
+  #root {
+    padding: 1.5rem 0.9rem 3rem;
+  }
+
+  select,
+  input,
+  form > button {
+    flex: 1 1 100%;
+  }
+
+  /* La tabla se desliza de lado en lugar de romper el diseño */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Respeto a quien prefiere menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+
+  button {
+    transition: none;
+  }
+}
