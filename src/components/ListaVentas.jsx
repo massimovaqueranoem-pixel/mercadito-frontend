@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import React, { useEffect, useState } from 'react';
 import api from "../api";
 import EditarVenta from './EditarVenta';
@@ -72,6 +74,16 @@ function ListaVentas() {
     </div>
   );
 }
+
+function ListaVentas() {
+    // Debe ir aquí adentro:
+    const [ventaEditando, setVentaEditando] = useState(null);
+
+    // ... resto de tu código
+}
+
+
+
 const [ventaEditando, setVentaEditando] = useState(null);
 // En tu archivo ListaVentas.jsx
 {ventaEditando && (
@@ -85,6 +97,8 @@ const [ventaEditando, setVentaEditando] = useState(null);
     }} 
   />
 )}
+
+
 
 <div className="main-container">
   
