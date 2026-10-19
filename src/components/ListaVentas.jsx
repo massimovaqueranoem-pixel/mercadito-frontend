@@ -72,10 +72,12 @@ function ListaVentas() {
     </div>
   );
 }
-
+const [ventaEditando, setVentaEditando] = useState(null);
 // En tu archivo ListaVentas.jsx
 {ventaEditando && (
+    
   <EditarVenta 
+ 
     venta={ventaEditando} 
     onUpdate={() => {
       setVentaEditando(null); // Oculta el formulario tras actualizar
