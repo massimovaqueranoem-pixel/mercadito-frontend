@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-
 import React, { useEffect, useState } from 'react';
-import api from "../api";
+import { api } from '../api';
 import EditarVenta from './EditarVenta';
 
 function ListaVentas() {
@@ -20,12 +18,11 @@ function ListaVentas() {
 
   const eliminarVenta = (id) => {
     if (window.confirm('¿Seguro que deseas eliminar esta venta?')) {
-      api.delete(`/ventas/${id}`)
-        .then(res => {
-          alert(res.data.message);
-          cargarVentas();
-        })
-        .catch(err => console.error('Error al eliminar venta:', err));
+      api.delete(`/ventas/${id}`).then(res => {
+        alert(res.data.message);
+        cargarVentas();
+      })
+      .catch(err => console.error('Error al eliminar venta:', err));
     }
   };
 
@@ -66,7 +63,7 @@ function ListaVentas() {
         <EditarVenta 
           venta={ventaSeleccionada} 
           onUpdate={() => { 
-            setVentaSeleccionada(null); 
+            setVentaSeleccionada(null);
             cargarVentas(); 
           }} 
         />
@@ -74,98 +71,5 @@ function ListaVentas() {
     </div>
   );
 }
-
-function ListaVentas() {
-    // Debe ir aquí adentro:
-    const [ventaEditando, setVentaEditando] = useState(null);
-
-    // ... resto de tu código
-}
-
-
-
-const [ventaEditando, setVentaEditando] = useState(null);
-// En tu archivo ListaVentas.jsx
-{ventaEditando && (
-    
-  <EditarVenta 
- 
-    venta={ventaEditando} 
-    onUpdate={() => {
-      setVentaEditando(null); // Oculta el formulario tras actualizar
-      cargarVentas();         // Vuelve a traer las ventas de la BD
-    }} 
-  />
-)}
-
-
-
-<div className="main-container">
-  
-  {/* ENCABEZADO */}
-  <header className="header-title">
-    <h1>Cafetería <span>Escolar</span></h1>
-  </header>
-
-  {/* GRID PRINCIPAL */}
-  <div className="content-grid">
-    
-    {/* COLUMNA IZQUIERDA: FORMULARIO */}
-    <section className="card-form">
-      <h2 className="card-title">Registrar Nueva Venta</h2>
-      
-      <select className="form-control">
-        <option value="">Seleccione estudiante</option>
-      </select>
-
-      <select className="form-control">
-        <option value="">Seleccione producto</option>
-      </select>
-
-      <input type="number" className="form-control" placeholder="Cantidad" />
-      <input type="date" className="form-control" />
-
-      <button type="submit" className="btn-submit">
-        Registrar Venta
-      </button>
-    </section>
-
-    {/* COLUMNA DERECHA: TABLA Y SU IMAGEN A UN LADO */}
-    <section className="right-section">
-      
-      <div className="table-and-image-wrapper">
-        
-        {/* TABLA DE VENTAS */}
-        <div className="table-container">
-          <table className="custom-table">
-            <thead>
-              <tr>
-                <th>Estudiante</th>
-                <th>Producto</th>
-                <th>Cant.</th>
-                <th>Precio</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Aquí renderizas la lista de tus ventas */}
-            </tbody>
-          </table>
-        </div>
-
-        {/* IMAGEN AL LADO DE LA TABLA */}
-        <div className="side-image-container">
-          <img 
-            src="" 
-            alt="Mercadito" 
-          />
-        </div>
-
-      </div>
-
-    </section>
-
-  </div>
-</div>
 
 export default ListaVentas;
